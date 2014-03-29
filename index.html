@@ -69,9 +69,14 @@
               Angels
             </label>
              <label class="radio">
-              <input type="radio" name="sound" id="triads" onchange="loadFarmAnimals();" value="farm">
-              Bonus
+              <input type="radio" name="sound" id="farm" onchange="loadFarmAnimals();" value="farm">
+              McDonald
             </label>
+             <label class="radio">
+              <input type="radio" name="sound" id="lazers" onchange="loadLazers();" value="lazers">
+              Lazers
+            </label>
+ 
           </div>
         </div>
 
@@ -117,6 +122,7 @@
       var loadCRootChords;
       var loadFarmAnimals;
       var loadAngelSounds;
+      var loadLazers;
 
       var magnitudeThreshhold = 40;
 
@@ -255,6 +261,15 @@
           leftfile = "sounds/triads/minor.mp3";
           rightfile = "sounds/triads/augmented.mp3";
           downfile = "sounds/triads/diminished.mp3";
+        };
+
+
+        loadLazers = function() {
+          // Xylophone sounds by default
+          upfile = "sounds/lazers/8bit.wav";
+          leftfile = "sounds/lazers/analog.wav";
+          rightfile = "sounds/lazers/buzzramp.ogg";
+          downfile = "sounds/lazers/pcquick.wav";
         };
 
 
