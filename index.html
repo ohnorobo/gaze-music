@@ -36,19 +36,7 @@
     </head>
 
     <body screen_capture_injected="true">
-    <div id="badge">
-        <a href="https://github.com/wallarelvo/camgaze.js/fork" style="position: absolute; z-index:2; top: 0; right: 0; border: 0;">
-            <img src="http://webaudiodemos.appspot.com/input/img/forkme.png" alt="Fork me on GitHub">
-        </a>
-    </div>
         <div class="container-narrow">
-            <div class="masthead">
-                <ul class="nav nav-pills pull-right">
-                    <li class="active"><a href="/camgaze.js">Home</a></li>
-                    <li><a href="http://github.com/wallarelvo/camgaze.js">Source</a></li>
-                </ul>
-                <h3 class="muted">Camgaze.js</h3>
-            </div>
             <div class="hero-unit">
             	<h2 style="padding-bottom:10;">Gaze Prediction Demo</h2>
                 <div align="center">
@@ -59,16 +47,10 @@
 
             <div class="footer">
                 <p>
-                    Creator: 
-                    <a href="http://www.linkedin.com/pub/alexander-wallar/68/985/b87">
-                        Alex Wallar
-                    </a>| <a href="mailto:aw204@st-andrews.ac.uk">aw204@st-andrews.ac.uk</a>
-                </p>
-                <p>
-                    Website by: 
-                    <a href="http://www.thundersun.net">
-                        Valentin Tunev
-                    </a>
+                    Berklee Music Therapy Hackathon: </br>
+                    <a href="http://sarahlaplante.com">Sarah Laplante</a> </br>
+                    Arthur Thomas Terembula III </br>
+                    Marina Serafim Maiztegui </br>
                 </p>
                 <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">
                   <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
@@ -92,7 +74,7 @@
 		<script text="text/javascript">
 			window.onload = function () {
 				var height = 480;
-				var width = 640;
+				var width = 600;
 
 				var cGaze = new camgaze.Camgaze(
 					width, 
@@ -102,6 +84,42 @@
 				var eyeTracker = new camgaze.EyeTracker(width, height);
 				var eyeFilter = new camgaze.EyeFilter();
 				var drawer = new camgaze.drawing.ImageDrawer();
+
+        var upsound =    new Audio("sounds/note1.mp3");
+        var leftsound =  new Audio("sounds/note3.mp3");
+        var downsound =  new Audio("sounds/note5.mp3");
+        var rightsound = new Audio("sounds/note8.mp3");
+
+        var pingDirection = function(gazeVector) {
+            var theta = Math.atan2(gazeVector.x , gazeVector.y);
+
+            console.log({"theta": theta});
+
+            var leftdiff = Math.min(Math.abs(theta),
+                                    Math.abs(theta - ((4.0 * Math.PI) / 2.0)));
+            var updiff = Math.abs(theta - ((1.0 * Math.PI) / 2.0));
+            var rightdiff = Math.abs(theta - ((2.0 * Math.PI) / 2.0));
+            var downdiff = Math.abs(theta - ((3.0 * Math.PI) / 2.0));
+
+            var max = Math.min(leftdiff, updiff, rightdiff, downdiff);
+
+            console.log(max);
+
+            if (max == leftdiff) {
+              leftsound.play();
+              console.log("LEFT");
+            } if (max == updiff) {
+              upsound.play();
+              console.log("UP");
+            } if (max == rightdiff) {
+              rightsound.play();
+              console.log("RIGHT");
+            } if (max == downdiff) {
+              downsound.play();
+              console.log("DOWN");
+            }
+        };
+
 
 				var frameOp = function (image_data, video) {
 					var trackingData = eyeTracker.track(image_data, video);
@@ -146,6 +164,9 @@
 									-1, // line width (filled)
 									"red"
 								);
+
+                console.log(eye.gazeVector);
+                pingDirection(eye.gazeVector);
 							}
 						);
 					}
