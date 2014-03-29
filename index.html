@@ -37,6 +37,23 @@
     </head>
 
     <body screen_capture_injected="true">
+        <div class="control-group">
+          <label class="control-label"> User role</label>
+          <div class="controls">
+            <label class="radio">
+              <input type="radio" name="user[role]" id="xylophone" value="xylophone" checked>
+              Xylophone
+            </label>
+            <label class="radio">
+              <input type="radio" name="user[role]" id="root" value="root">
+              C Root Chords
+            </label>
+            <label class="radio">
+              <input type="radio" name="user[role]" id="triads" value="triads">
+              Triads
+            </label>
+          </div>
+        </div>
         <div class="container-narrow">
             <div class="hero-unit">
             	<h2 style="padding-bottom:10;">Gaze Prediction Demo</h2>
@@ -73,6 +90,7 @@
         <!-- <script type="text/javascript" src="http://foo123.github.io/examples/common/js/haar&#45;detector.min.js"></script> -->
         <!-- <script type="text/javascript" src="http://foo123.github.io/examples/common/cascades/haarcascade_frontalface_alt.js"></script> -->
 		<script text="text/javascript">
+
 			window.onload = function () {
 				var height = 480;
 				var width = 600;
@@ -86,10 +104,30 @@
 				var eyeFilter = new camgaze.EyeFilter();
 				var drawer = new camgaze.drawing.ImageDrawer();
 
-        var upsound =    new Audio("sounds/note1.mp3");
-        var leftsound =  new Audio("sounds/note3.mp3");
-        var downsound =  new Audio("sounds/note5.mp3");
-        var rightsound = new Audio("sounds/note8.mp3");
+        // Xylophone sounds by default
+        var upfile = "sounds/note1.mp3";
+        var leftfile = "sounds/note3.mp3";
+        var downfile = "sounds/note5.mp3";
+        var rightfile = "sounds/note7.mp3";
+
+        var upsound =    new Audio(upfile);
+        var leftsound =  new Audio(leftfile);
+        var downsound =  new Audio(downfile);
+        var rightsound = new Audio(rightfile);
+
+        // preload
+        upsound.load();
+        leftsound.load();
+        downsound.load();
+        rightsound.load();
+
+        // http://stackoverflow.com/questions/9335577/html5-audio-sound-only-plays-once
+        // fixing weird audio bug in spec
+        // to make currentTime writable
+        //upsound.src = upsound.src;
+        //leftsound.src = leftsound.src;
+        //downsound.src = downsound.src;
+        //rightsound.src = rightsound.src;
 
         var pingDirection = function(gazeVector) {
             var theta = Math.atan2(gazeVector.x , gazeVector.y);
@@ -107,19 +145,79 @@
             //console.log(max);
 
             if (max == leftdiff) {
-              leftsound.play();
-              //console.log("LEFT");
+              if (leftsound.paused || leftsound.currentTime == leftsound.duration) {
+                //leftsound.currentTime = 0;
+                leftsound.src = leftfile;
+                leftsound.play();
+                console.log("LEFT");
+              }
             } if (max == updiff) {
-              upsound.play();
-              //console.log("UP");
+              if (upsound.paused || upsound.currentTime == upsound.duration) {
+                //upsound.currentTime = 0;
+                upsound.src = upfile;
+                upsound.play();
+                console.log("UP");
+              }
             } if (max == rightdiff) {
-              rightsound.play();
-              //console.log("RIGHT");
+              if (rightsound.paused || rightsound.currentTime == rightsound.duration) {
+                //rightsound.currentTime = 0;
+                rightsound.src = rightfile;
+                rightsound.play();
+                console.log("RIGHT");
+              }
             } if (max == downdiff) {
-              downsound.play();
-              //console.log("DOWN");
+              if (downsound.paused || downsound.currentTime == downsound.duration) {
+                //downsound.currentTime = 0;
+                downsound.src = downfile;
+                downsound.play();
+                console.log("DOWN");
+              }
             }
         };
+
+
+        // Functions to change sounds
+        var loadAngelSounds = function() {
+          // Angel Sounds
+          upfile = "sounds/angels/fadeout/d_minor.ogg";
+          leftfile = "sounds/angels/fadeout/e_minor.ogg";
+          rightfile = "sounds/angels/fadeout/f_minor.ogg";
+          downfile = "sounds/3sec_silence.mp3";
+        };
+
+        var loadXylophoneSounds = function() {
+          // Xylophone sounds by default
+          upfile = "sounds/note1.mp3";
+          leftfile = "sounds/note3.mp3";
+          downfile = "sounds/note5.mp3";
+          rightfile = "sounds/note7.mp3";
+        };
+
+        var loadFarmAnimals = function() {
+          // Xylophone sounds by default
+          upfile = "sounds/farmanimals/geese.ogg";
+          leftfile = "sounds/farmanimals/horse.wav";
+          downfile = "sounds/farmanimals/pig.wav";
+          rightfile = "sounds/varmanimals/sheep.wav";
+        };
+
+        var loadCRootChords = function() {
+          // Xylophone sounds by default
+          upfile = "sounds/c-root-chords/major_triad_1.mp3";
+          leftfile = "sounds/c-root-chords/major_triad_2.mp3";
+          rightfile = "sounds/c-root-chords/major_triad_3.mp3";
+          downfile = "sounds/3sec_silence.mp3";
+        };
+
+        var loadTriads = function() {
+          // Xylophone sounds by default
+          upfile = "sounds/triads/major.mp3";
+          leftfile = "sounds/triads/minor.mp3";
+          rightfile = "sounds/triads/augmented.mp3";
+          downfile = "sounds/triads/diminished.mp3";
+        };
+
+
 
 
 				var frameOp = function (image_data, video) {
