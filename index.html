@@ -37,24 +37,7 @@
     </head>
 
     <body screen_capture_injected="true">
-        <div class="control-group">
-          <label class="control-label"> User role</label>
-          <div class="controls">
-            <label class="radio">
-              <input type="radio" name="user[role]" id="xylophone" value="xylophone" checked>
-              Xylophone
-            </label>
-            <label class="radio">
-              <input type="radio" name="user[role]" id="root" value="root">
-              C Root Chords
-            </label>
-            <label class="radio">
-              <input type="radio" name="user[role]" id="triads" value="triads">
-              Triads
-            </label>
-          </div>
-        </div>
-        <div class="container-narrow">
+       <div class="container-narrow">
             <div class="hero-unit">
             	<h2 style="padding-bottom:10;">Gaze Prediction Demo</h2>
                 <div id="webcam" align="center">
@@ -64,18 +47,44 @@
             </div>
 
             <div class="footer">
-                <p>
-                    Berklee Music Therapy Hackathon: </br>
-                    <a href="http://sarahlaplante.com">Sarah Laplante</a> </br>
-                    Arthur Thomas Terembula III </br>
-                    Marina Serafim Maiztegui </br>
-                </p>
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">
-                  <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
-                </a><br />
-                <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Camgaze.js</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://github.com/wallarelvo/camgaze.js" property="cc:attributionName" rel="cc:attributionURL">Alexander Wallar</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
-            </div>
-	    </div>
+        <div class="control-group">
+          <label class="control-label">  Sound Type </label>
+          <div class="controls">
+            <label class="radio">
+              <input type="radio" name="sound" id="xylophone" onchange="loadXylophoneSounds();" value="xylophone" checked>
+              Xylophone
+            </label>
+            <label class="radio">
+              <input type="radio" name="sound" id="root" onchange="loadCRootChords();" value="root">
+              C Root Chords
+            </label>
+            <label class="radio">
+              <input type="radio" name="sound" id="triads" onchange="loadTriads();" value="triads">
+              Triads
+            </label>
+            <label class="radio">
+              <input type="radio" name="sound" id="triads" onchange="loadAngelSounds();" value="angels">
+              Angels
+            </label>
+             <label class="radio">
+              <input type="radio" name="sound" id="triads" onchange="loadFarmAnimals();" value="farm">
+              Bonus
+            </label>
+          </div>
+        </div>
+
+          <p>
+              Berklee Music Therapy Hackathon: </br>
+              <a href="http://sarahlaplante.com">Sarah Laplante</a> </br>
+              Arthur Thomas Terembula III </br>
+              Marina Serafim Maiztegui </br>
+          </p>
+          <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">
+            <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
+          </a><br />
+          <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Camgaze.js</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://github.com/wallarelvo/camgaze.js" property="cc:attributionName" rel="cc:attributionURL">Alexander Wallar</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+      </div>
+    </div>
 
 		<!-- JQuery and Bootstrap Javascript files -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
@@ -90,6 +99,13 @@
         <!-- <script type="text/javascript" src="http://foo123.github.io/examples/common/js/haar&#45;detector.min.js"></script> -->
         <!-- <script type="text/javascript" src="http://foo123.github.io/examples/common/cascades/haarcascade_frontalface_alt.js"></script> -->
 		<script text="text/javascript">
+
+      //predeclaring functions to change sound type so they're in the right scope
+      var loadTriads;
+      var loadXylophoneSounds;
+      var loadCRootChords;
+      var loadFarmAnimals;
+      var loadAngelSounds;
 
 			window.onload = function () {
 				var height = 480;
@@ -177,7 +193,7 @@
 
 
         // Functions to change sounds
-        var loadAngelSounds = function() {
+        loadAngelSounds = function() {
           // Angel Sounds
           upfile = "sounds/angels/fadeout/d_minor.ogg";
           leftfile = "sounds/angels/fadeout/e_minor.ogg";
@@ -185,7 +201,7 @@
           downfile = "sounds/3sec_silence.mp3";
         };
 
-        var loadXylophoneSounds = function() {
+        loadXylophoneSounds = function() {
           // Xylophone sounds by default
           upfile = "sounds/note1.mp3";
           leftfile = "sounds/note3.mp3";
@@ -193,7 +209,7 @@
           rightfile = "sounds/note7.mp3";
         };
 
-        var loadFarmAnimals = function() {
+        loadFarmAnimals = function() {
           // Xylophone sounds by default
           upfile = "sounds/farmanimals/geese.ogg";
           leftfile = "sounds/farmanimals/horse.wav";
@@ -201,7 +217,7 @@
           rightfile = "sounds/varmanimals/sheep.wav";
         };
 
-        var loadCRootChords = function() {
+        loadCRootChords = function() {
           // Xylophone sounds by default
           upfile = "sounds/c-root-chords/major_triad_1.mp3";
           leftfile = "sounds/c-root-chords/major_triad_2.mp3";
@@ -209,7 +225,7 @@
           downfile = "sounds/3sec_silence.mp3";
         };
 
-        var loadTriads = function() {
+        loadTriads = function() {
           // Xylophone sounds by default
           upfile = "sounds/triads/major.mp3";
           leftfile = "sounds/triads/minor.mp3";
