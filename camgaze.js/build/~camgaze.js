@@ -601,6 +601,9 @@ camgaze.CVUtil.HaarDetector = function (classifier, imageWidth, imageHeight) {
 	work_canvas.height = h;
 	this.ctx = work_canvas.getContext("2d");
 
+  // mirror video
+  this.ctx.translate(word_canvas.width, 0);
+  this.ctx.scale(-1, 1);
 
 	this.img_u8 = new jsfeat.matrix_t(
 		w, h, 
@@ -1178,6 +1181,10 @@ camgaze.EyeTracker = function (xSize, ySize) {
 	this.resizeCanvas = document.createElement("canvas");
 	this.resizeCanvas.style = "display:none;";
 	this.resizeCtx = this.resizeCanvas.getContext("2d");
+
+  // mirror video
+  //this.resizeCtx.translate(canvasSource.width, 0);
+  //this.resizeCtx.scale(-1, 1);
 }
 
 camgaze.EyeTracker.prototype = {
@@ -1749,6 +1756,10 @@ camgaze.drawing.CanvasDrawer = function (canvasId, xSize, ySize) {
 
 	this.context = this.drawingCanvas.getContext("2d");
 
+  // mirror video
+  this.context.translate(drawingCanvas.width, 0);
+  this.context.scale(-1, 1);
+
 	this.xSize = xSize;
 	this.ySize = ySize;
 	this.drawingObjects = {
@@ -1955,6 +1966,10 @@ camgaze.drawing.ImageDrawer = function () {
 	this.drawingCanvas = document.createElement("canvas");
 	this.drawingCanvas.style = "display:none;";
 	this.context = this.drawingCanvas.getContext("2d");
+
+  // mirror video
+  this.context.translate(this.drawingCanvas.width, 0);
+  this.context.scale(-1, 1);
 }
 
 // line color is hexstring or a well known
@@ -2109,6 +2124,11 @@ camgaze.Camera = function (dimX, dimY, canvasId) {
 		this.canvas.width = dimX;
 		this.canvas.height = dimY;
 		this.context = this.canvas.getContext('2d');
+
+    // mirror video
+    this.context.translate(this.canvas.width, 0);
+    this.context.scale(-1, 1);
+
 	}
 
 	this.invisibleCanvas = document.createElement("canvas");
@@ -2117,6 +2137,10 @@ camgaze.Camera = function (dimX, dimY, canvasId) {
 	this.invisibleCanvas.height = dimY;
 
 	this.invisibleContext = this.invisibleCanvas.getContext('2d');
+
+  // mirror video
+  this.invisibleContext.translate(this.invisibleCanvas.width, 0);
+  this.invisibleContext.scale(-1, 1);
 
 	this.video = document.querySelector(
 	  'video'

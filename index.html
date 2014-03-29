@@ -24,6 +24,7 @@
                 right: 0;
             }
     	</style>
+      <link rel="stylesheet" href="camgaze.js/css/styles.css">
     	<!-- Le Bootstrap styles -->
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -39,7 +40,7 @@
         <div class="container-narrow">
             <div class="hero-unit">
             	<h2 style="padding-bottom:10;">Gaze Prediction Demo</h2>
-                <div align="center">
+                <div id="webcam" align="center">
                 	<canvas id="mainCanvas"></canvas>
                 	<video style="display: none;" autoplay></video>
                 </div>
@@ -93,7 +94,7 @@
         var pingDirection = function(gazeVector) {
             var theta = Math.atan2(gazeVector.x , gazeVector.y);
 
-            console.log({"theta": theta});
+            //console.log({"theta": theta});
 
             var leftdiff = Math.min(Math.abs(theta),
                                     Math.abs(theta - ((4.0 * Math.PI) / 2.0)));
@@ -103,20 +104,20 @@
 
             var max = Math.min(leftdiff, updiff, rightdiff, downdiff);
 
-            console.log(max);
+            //console.log(max);
 
             if (max == leftdiff) {
               leftsound.play();
-              console.log("LEFT");
+              //console.log("LEFT");
             } if (max == updiff) {
               upsound.play();
-              console.log("UP");
+              //console.log("UP");
             } if (max == rightdiff) {
               rightsound.play();
-              console.log("RIGHT");
+              //console.log("RIGHT");
             } if (max == downdiff) {
               downsound.play();
-              console.log("DOWN");
+              //console.log("DOWN");
             }
         };
 
@@ -165,7 +166,7 @@
 									"red"
 								);
 
-                console.log(eye.gazeVector);
+                //console.log(eye.gazeVector);
                 pingDirection(eye.gazeVector);
 							}
 						);
