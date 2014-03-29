@@ -79,6 +79,9 @@
               Arthur Thomas Terembula III </br>
               Marina Serafim Maiztegui </br>
           </p>
+          <p>
+            Gaze Detection is sensitive to light conditions and works best against a clean white background
+          </p>
           <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">
             <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
           </a><br />
@@ -148,7 +151,7 @@
         var pingDirection = function(gazeVector) {
             var theta = Math.atan2(gazeVector.x , gazeVector.y);
 
-            //console.log({"theta": theta});
+            console.log({"theta": theta});
 
             var leftdiff = Math.min(Math.abs(theta),
                                     Math.abs(theta - ((4.0 * Math.PI) / 2.0)));
