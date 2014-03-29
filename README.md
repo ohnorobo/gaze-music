@@ -12,7 +12,7 @@ Project for the [Berklee Music Therapy Hackathon](http://www.berklee.edu/mthack)
 
 or any other simple server.
 
-Also forking the project will create a website at http://<your-github-username>.github.io/gaze-music
+Also forking the project will create a website at http://\<your-github-username\>.github.io/gaze-music
 
 ### Technologies:
 
