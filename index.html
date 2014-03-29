@@ -76,6 +76,10 @@
               <input type="radio" name="sound" id="lazers" onchange="loadLazers();" value="lazers">
               Lazers
             </label>
+            <label class="radio">
+              <input type="radio" name="sound" id="drum" onchange="loadDrums();" value="drum">
+              Drums
+            </label>
  
           </div>
         </div>
@@ -123,6 +127,7 @@
       var loadFarmAnimals;
       var loadAngelSounds;
       var loadLazers;
+      var loadDrums;
 
       var magnitudeThreshhold = 40;
 
@@ -240,7 +245,6 @@
         };
 
         loadFarmAnimals = function() {
-          // Xylophone sounds by default
           upfile = "sounds/farmanimals/geese.ogg";
           leftfile = "sounds/farmanimals/horse.wav";
           downfile = "sounds/farmanimals/pig.wav";
@@ -248,7 +252,6 @@
         };
 
         loadCRootChords = function() {
-          // Xylophone sounds by default
           upfile = "sounds/c-root-chords/major_triad_1.mp3";
           leftfile = "sounds/c-root-chords/major_triad_2.mp3";
           rightfile = "sounds/c-root-chords/major_triad_3.mp3";
@@ -256,20 +259,24 @@
         };
 
         loadTriads = function() {
-          // Xylophone sounds by default
           upfile = "sounds/triads/major.mp3";
           leftfile = "sounds/triads/minor.mp3";
           rightfile = "sounds/triads/augmented.mp3";
           downfile = "sounds/triads/diminished.mp3";
         };
 
-
         loadLazers = function() {
-          // Xylophone sounds by default
           upfile = "sounds/lazers/8bit.wav";
           leftfile = "sounds/lazers/analog.wav";
           rightfile = "sounds/lazers/buzzramp.ogg";
           downfile = "sounds/lazers/pcquick.wav";
+        };
+
+        loadDrums = function() {
+          upfile = "sounds/drum/hat.mp3";
+          leftfile = "sounds/drum/snare-low.mp3";
+          rightfile = "sounds/drum/kick.mp3";
+          downfile = "sounds/drum/snap.wav";
         };
 
 
