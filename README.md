@@ -34,4 +34,8 @@ Probable support exists for the following browsers, although they haven't been t
 * Firefox Mobile 10.0
 * iOS6 Safari
 
-Gaze tracking from https://github.com/wallarelvo/camgaze.js
+Gaze tracking from [Alexander Waller](https://github.com/wallarelvo/camgaze.js)
+
+### License
+
+[Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/deed.en_US)
