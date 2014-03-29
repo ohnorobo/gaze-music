@@ -27,4 +27,11 @@ Uses experimental features in HTML5 for audio and webcam support. Tested March 2
 * IE - unknown
 * Opera - unknown
 
+Probable support exists for the following browsers, although they haven't been tested. [source](http://www.html5rocks.com/en/tutorials/getusermedia/intro/#toc-history)
+
+* Android 3.0 browser
+* Chrome for Android (0.16)
+* Firefox Mobile 10.0
+* iOS6 Safari
+
 Gaze tracking from https://github.com/wallarelvo/camgaze.js
