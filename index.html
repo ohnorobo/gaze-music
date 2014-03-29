@@ -25,8 +25,10 @@
             }
     	</style>
       <link rel="stylesheet" href="camgaze.js/css/styles.css">
+      <link rel="stylesheet" href="camgaze.js/css/slider.css">
     	<!-- Le Bootstrap styles -->
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="camgaze.js/bootstrap-slider.js" rel="stylesheet">
     	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
           <script src="js/html5shiv.js"></script>
@@ -73,6 +75,12 @@
           </div>
         </div>
 
+        <!-- <div>
+          <p> Magnitude (high = fewer sounds, low = more sounds) </p>
+          <input type="text" class="span2" value="" data-slider-min="10" data-slider-max="70" data-slider-step="5" data-slider-value="50"
+            data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
+        </div> -->
+
           <p>
               Berklee Music Therapy Hackathon: </br>
               <a href="http://sarahlaplante.com">Sarah Laplante</a> </br>
@@ -110,13 +118,15 @@
       var loadFarmAnimals;
       var loadAngelSounds;
 
+      var magnitudeThreshhold = 40;
+
 			window.onload = function () {
 				var height = 480;
 				var width = 600;
 
 				var cGaze = new camgaze.Camgaze(
-					width, 
-					height, 
+					width,
+					height,
 					"mainCanvas"
 				);
 				var eyeTracker = new camgaze.EyeTracker(width, height);
@@ -150,8 +160,9 @@
 
         var pingDirection = function(gazeVector) {
             var theta = Math.atan2(gazeVector.x , gazeVector.y);
+            var magnitude = Math.sqrt(Math.pow(gazeVector.x, 2), Math.pow(gazeVector.y, 2))
 
-            console.log({"theta": theta});
+            console.log({"theta": theta, "magnitude": magnitude});
 
             var leftdiff = Math.min(Math.abs(theta),
                                     Math.abs(theta - ((4.0 * Math.PI) / 2.0)));
@@ -159,37 +170,47 @@
             var rightdiff = Math.abs(theta - ((2.0 * Math.PI) / 2.0));
             var downdiff = Math.abs(theta - ((3.0 * Math.PI) / 2.0));
 
-            var max = Math.min(leftdiff, updiff, rightdiff, downdiff);
+            var min = Math.min(leftdiff, updiff, rightdiff, downdiff);
 
             //console.log(max);
 
-            if (max == leftdiff) {
-              if (leftsound.paused || leftsound.currentTime == leftsound.duration) {
-                //leftsound.currentTime = 0;
-                leftsound.src = leftfile;
-                leftsound.play();
-                console.log("LEFT");
-              }
-            } if (max == updiff) {
-              if (upsound.paused || upsound.currentTime == upsound.duration) {
-                //upsound.currentTime = 0;
-                upsound.src = upfile;
-                upsound.play();
-                console.log("UP");
-              }
-            } if (max == rightdiff) {
-              if (rightsound.paused || rightsound.currentTime == rightsound.duration) {
-                //rightsound.currentTime = 0;
-                rightsound.src = rightfile;
-                rightsound.play();
-                console.log("RIGHT");
-              }
-            } if (max == downdiff) {
-              if (downsound.paused || downsound.currentTime == downsound.duration) {
-                //downsound.currentTime = 0;
-                downsound.src = downfile;
-                downsound.play();
-                console.log("DOWN");
+            if (magnitude > magnitudeThreshhold) {
+
+              if (min == leftdiff) {
+                if (leftsound.paused || leftsound.currentTime == leftsound.duration) {
+                  //leftsound.currentTime = 0;
+                  leftsound.src = leftfile;
+                  leftsound.play();
+                  console.log("LEFT");
+                }
+              } else if (min == updiff) {
+                if (upsound.paused || upsound.currentTime == upsound.duration) {
+                  //upsound.currentTime = 0;
+                  upsound.src = upfile;
+                  upsound.play();
+                  console.log("UP");
+                }
+              } else if (min == rightdiff) {
+                if (rightsound.paused || rightsound.currentTime == rightsound.duration) {
+                  //rightsound.currentTime = 0;
+                  rightsound.src = rightfile;
+                  rightsound.play();
+                  console.log("RIGHT");
+                }
+              } else if (min == downdiff) {
+                if (downsound.paused || downsound.currentTime == downsound.duration) {
+                  //downsound.currentTime = 0;
+                  downsound.src = downfile;
+                  downsound.play();
+                  console.log("DOWN");
+                }
+              } else {
+                console.log("NO DIRECTION");
+                console.log({"min":min,
+                             "leftdiff":leftdiff,
+                             "rightdiff":rightdiff,
+                             "updiff":updiff,
+                             "downdiff":downdiff});
               }
             }
         };

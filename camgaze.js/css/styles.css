@@ -5,3 +5,8 @@
   transform: scale(-1, 1);
   filter: FlipH;
 }
+
+#ex1Slider .slider-selection {
+    background: #BABABA;
+  }
+
